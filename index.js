@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const express = require('express');
-const { Client, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Events, GatewayIntentBits, MessageEmbed } = require('discord.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const app = express();
@@ -28,7 +28,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 	if (request.headers.type === "update") {
 
-		let updateMessage = new Discord.MessageEmbed()
+		let updateMessage = new MessageEmbed()
 			.setTitle(request.body.title)
 			.setDescription(request.body.description)
 			.setColor("#1fb975")
@@ -46,7 +46,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 	if (request.headers.type === "test-server-update") {
 
-		let updateMessage = new Discord.MessageEmbed()
+		let updateMessage = new MessageEmbed()
 			.setTitle(request.body.title)
 			.setDescription(request.body.description)
 			.setColor("#1fb975")
@@ -64,7 +64,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 	if (request.headers.type === "roundover") {
 
-		let roundoverMessage = new Discord.MessageEmbed()
+		let roundoverMessage = new MessageEmbed()
 			.setTitle("Round Over - " + (request.body.win == "true" ? "Victory" : "Defeat"))
 			.setDescription(
 				"**Difficulty:** " + request.body.difficulty + "\n" +
@@ -118,7 +118,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 	if (request.headers.type === "bosskill") {
 
-		let bosskillMessage = new Discord.MessageEmbed()
+		let bosskillMessage = new MessageEmbed()
 			.setTitle("Boss Kill - " + request.body.boss)
 			.setDescription(
 				"**Difficulty:** " + request.body.difficulty + "\n" +
