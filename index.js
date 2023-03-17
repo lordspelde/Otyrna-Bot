@@ -2,7 +2,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const express = require('express');
 const { Client, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const app = express();
@@ -212,4 +211,4 @@ client.on("message", async message => {
 	};
 });
 
-client.login(token);
+client.login(process.env.token);
