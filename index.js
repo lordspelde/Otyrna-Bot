@@ -33,7 +33,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 			.setDescription(request.body.description)
 			.setColor("#1fb975")
 			.setTimestamp()
-			.setFooter("Otyrna Communications");
+			.setFooter({ text: "Otyrna Communications" });
 
 		let updateChannel = client.channels.cache.get(request.body.channel);
 
@@ -51,7 +51,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 			.setDescription(request.body.description)
 			.setColor("#1fb975")
 			.setTimestamp()
-			.setFooter("Otyrna Communications");
+			.setFooter({ text: "Otyrna Communications" });
 
 		let updateChannel = client.channels.cache.get(request.body.channel);
 
@@ -75,7 +75,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 				"**Number of Players:** " + request.body.numplayers + "\n")
 			.setColor(request.body.difficultycolor)
 			.setTimestamp()
-			.setFooter("Otyrna Communications");
+			.setFooter({ text: "Otyrna Communications" });
 
 		/* removed in an attempt to reduce discord logging the bot out from too many requests
 		let playerMessage = new EmbedBuilder()
@@ -130,7 +130,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 			.setColor(request.body.bosscolor)
 			//.setColor(request.body.difficultycolor)
 			.setTimestamp()
-			.setFooter("Otyrna Communications");
+			.setFooter({ text: "Otyrna Communications"});
 
 		// sort players by score and add to message
 		let players = request.body.players;
