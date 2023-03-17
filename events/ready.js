@@ -5,7 +5,7 @@ module.exports = {
 	once: true,
 	
 	execute(client) {
-		console.log(`Logged into the Discord account - ${c.user.tag}`);
+		console.log(`Logged into the Discord account - ${client.user.tag}`);
 		client.user.setActivity('Watching over EoC');
 	},
 };

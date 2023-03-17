@@ -38,7 +38,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 		let updateChannel = client.channels.cache.get(request.body.channel);
 
 		message = updateChannel.send('<@&983579513348821032>', {
-			embed: updateMessage
+			embeds: [updateMessage]
 		});
 
 		return response.sendStatus(200); //.send("Success!");
@@ -56,7 +56,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 		let updateChannel = client.channels.cache.get(request.body.channel);
 
 		message = updateChannel.send('Test Server Update', {
-			embed: updateMessage
+			embeds: [updateMessage]
 		});
 
 		return response.sendStatus(200); //.send("Success!");
@@ -115,7 +115,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 		});
 		*/
 
-		roundoverChannel.send(roundoverMessage);
+		roundoverChannel.send({embeds: [roundoverMessage]});
 
 		return response.sendStatus(200); //.send("Success!");
 	};
@@ -160,7 +160,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 		});
 
 		let bosskillChannel = await client.channels.fetch(bossChannelId);
-		bosskillChannel.send(bosskillMessage);
+		bosskillChannel.send({embeds: [bosskillMessage]});
 
 		return response.sendStatus(200);
 	};
