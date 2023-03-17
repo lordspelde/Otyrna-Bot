@@ -92,7 +92,11 @@ app.post('/send-request', express.json(), async (request, response) => {
 			return b.score - a.score;
 		}).forEach(player => {
 			// playerMessage
-			roundoverMessage.addField(player.displayname + ` (@${player.name})`, `Level: ${formatNumber(player.level)}\nScore: ${formatNumber(player.score)}\nDeaths: ${formatNumber(player.deaths)}`, true);
+			roundoverMessage.addFields({
+				name:player.displayname + ` (@${player.name})`,
+				value: `Level: ${formatNumber(player.level)}\nScore: ${formatNumber(player.score)}\nDeaths: ${formatNumber(player.deaths)}`,
+				inline: true
+			});
 		});
 
 		/*
@@ -138,11 +142,11 @@ app.post('/send-request', express.json(), async (request, response) => {
 		players.sort((a, b) => {
 			return (b.percentage * 100000) - (a.percentage * 100000);
 		}).forEach(player => {
-			bosskillMessage.addField(
-				player.displayname + ` (@${player.name})` + (player.morph == "false" ? "" : ` as ${player.morph}\n`),
+			bosskillMessage.addFields({
+				name: player.displayname + ` (@${player.name})` + (player.morph == "false" ? "" : ` as ${player.morph}\n`),
 
 				// combat stats
-				`Percentage: ${Math.round(Number(player.percentage) * 100)}%\n\n` +
+				value: `Percentage: ${Math.round(Number(player.percentage) * 100)}%\n\n` +
 
 				// player stats
 				`Level: ${player.level}\nScore: ${player.score}\nCash: ${player.cash}\nDeaths: ${player.deaths}\n\n` +
@@ -151,8 +155,8 @@ app.post('/send-request', express.json(), async (request, response) => {
 				`Cash Reward: ${formatNumber(player.cashreward)}\nScore Reward: ${formatNumber(player.scorereward)}\nXP Reward: ${formatNumber(player.xpreward)}`,
 
 				// inline
-				true
-			);
+				inline: true
+			});
 		});
 
 		let bosskillChannel = await client.channels.fetch(bossChannelId);
