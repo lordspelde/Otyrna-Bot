@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const express = require('express');
-const { Client, Events, GatewayIntentBits, MessageEmbed } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const app = express();
@@ -28,7 +28,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 	if (request.headers.type === "update") {
 
-		let updateMessage = new MessageEmbed()
+		let updateMessage = new EmbedBuilder()
 			.setTitle(request.body.title)
 			.setDescription(request.body.description)
 			.setColor("#1fb975")
@@ -46,7 +46,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 	if (request.headers.type === "test-server-update") {
 
-		let updateMessage = new MessageEmbed()
+		let updateMessage = new EmbedBuilder()
 			.setTitle(request.body.title)
 			.setDescription(request.body.description)
 			.setColor("#1fb975")
@@ -64,7 +64,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 	if (request.headers.type === "roundover") {
 
-		let roundoverMessage = new MessageEmbed()
+		let roundoverMessage = new EmbedBuilder()
 			.setTitle("Round Over - " + (request.body.win == "true" ? "Victory" : "Defeat"))
 			.setDescription(
 				"**Difficulty:** " + request.body.difficulty + "\n" +
@@ -78,7 +78,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 			.setFooter("Otyrna Communications");
 
 		/* removed in an attempt to reduce discord logging the bot out from too many requests
-		let playerMessage = new Discord.MessageEmbed()
+		let playerMessage = new EmbedBuilder()
 			.setTitle("Player Stats")
 			//.setDescription("")
 			.setColor((request.body.win == "true" ? "#1fb975" : "#ff0000"))
@@ -118,7 +118,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 	if (request.headers.type === "bosskill") {
 
-		let bosskillMessage = new MessageEmbed()
+		let bosskillMessage = new EmbedBuilder()
 			.setTitle("Boss Kill - " + request.body.boss)
 			.setDescription(
 				"**Difficulty:** " + request.body.difficulty + "\n" +
