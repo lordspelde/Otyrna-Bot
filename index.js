@@ -1,11 +1,12 @@
+const fs = require('node:fs');
+const path = require('node:path');
 const express = require('express');
-const fs = require('then-fs');
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const app = express();
-
+require('dotenv').config();
 
 const gameChannelID = "1004187152344686672"; //channel for completed games & stats
 const bossChannelId = "1004471441191862392"; //channel for boss kill logs
@@ -189,32 +190,18 @@ for (const file of commandFiles) {
 	}
 }
 
-client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
-	const command = interaction.client.commands.get(interaction.commandName);
-
-	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
-		return;
+for (const file of eventFiles) {
+	const filePath = path.join(eventsPath, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
 	}
-
-	try {
-		await command.execute(interaction);
-	} catch (error) {
-		console.error(error);
-		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-		} else {
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-		}
-	}
-});
-
-client.once(Events.ClientReady, c => {
-	console.log(`Logged into the Discord account - ${c.user.tag}`);
-	client.user.setActivity('Watching over # EoC');
-});
+}
 
 client.on("message", async message => {
 	if (message.author.bot) return;
