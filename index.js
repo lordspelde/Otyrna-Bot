@@ -37,7 +37,8 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 		let updateChannel = client.channels.cache.get(request.body.channel);
 
-		message = updateChannel.send('<@&983579513348821032>', {
+		message = updateChannel.send({
+			content: '<@&983579513348821032>',
 			embeds: [updateMessage]
 		});
 
@@ -55,7 +56,8 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 		let updateChannel = client.channels.cache.get(request.body.channel);
 
-		message = updateChannel.send('Test Server Update', {
+		message = updateChannel.send({
+			content: 'Test Server Update',
 			embeds: [updateMessage]
 		});
 
