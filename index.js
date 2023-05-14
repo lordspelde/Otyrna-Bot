@@ -10,6 +10,7 @@ require('dotenv').config();
 const gameChannelID = "1004187152344686672"; //channel for completed games & stats
 const bossChannelId = "1004471441191862392"; //channel for boss kill logs
 const serverTrackerChannelId = "1008020313222680647"; //channel for server tracker logs
+const testServerDataId = "1107450715691032668"; //ditto as gameChannelID and bossChannelId but for test server
 
 // function that puts commas in a number
 function toComma(number) {
@@ -107,7 +108,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 		}
 		*/
 
-		let roundoverChannel = await client.channels.fetch(gameChannelID)
+		let roundoverChannel = await client.channels.fetch(response.headers["test-server"] & testServerDataId || gameChannelID)
 		/*
 		roundoverChannel.send({
 			embeds: [
@@ -161,7 +162,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 			});
 		});
 
-		let bosskillChannel = await client.channels.fetch(bossChannelId);
+		let bosskillChannel = await client.channels.fetch(response.headers["test-server"] & testServerDataId || bossChannelId);
 		bosskillChannel.send({embeds: [bosskillMessage]});
 
 		return response.sendStatus(200);
