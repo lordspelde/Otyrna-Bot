@@ -108,7 +108,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 		}
 		*/
 
-		let roundoverChannel = await client.channels.fetch(response.headers["test-server"] & testServerDataId || gameChannelID)
+		let roundoverChannel = await client.channels.fetch(response.headers["test-server"] == "true" && testServerDataId || gameChannelID)
 		/*
 		roundoverChannel.send({
 			embeds: [
@@ -162,7 +162,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 			});
 		});
 
-		let bosskillChannel = await client.channels.fetch(response.headers["test-server"] & testServerDataId || bossChannelId);
+		let bosskillChannel = await client.channels.fetch(response.headers["test-server"] == "true" && testServerDataId || bossChannelId);
 		bosskillChannel.send({embeds: [bosskillMessage]});
 
 		return response.sendStatus(200);
