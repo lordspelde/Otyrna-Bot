@@ -75,6 +75,7 @@ app.post('/send-request', express.json(), async (request, response) => {
 				"**Total Deaths:** " + request.body.deaths + "\n" +
 				"**Time:** " + request.body.time + "\n" +
 				(request.body.win == "true" ? `**Remaining Lives:** ${request.body.remaininglives}\n` : `**Wave:** ${request.body.wave}\n`) +
+				(request.body.win == "false" ? `**Last Statue Hit:** ${request.body.lasthit}\n` : "") +
 				"**Number of Players:** " + request.body.numplayers + "\n")
 			.setColor(request.body.difficultycolor)
 			.setTimestamp()
