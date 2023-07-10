@@ -184,8 +184,8 @@ app.post('/send-request', express.json(), async (request, response) => {
 			.setDescription(
 				"**" + request.body.name + "** (" + request.body.userid + ")\n" +
 				request.body.info +
-				"\n\n**Server Type:**" + request.headers.server +
-				"\n**Case ID:**" + request.body.caseid
+				"\n\n**Server Type: **" + request.headers.server +
+				"\n**Case ID: **" + request.body.caseid
 			)
 			.setColor("#ff0000")
 			.setTimestamp()
