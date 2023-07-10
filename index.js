@@ -214,20 +214,20 @@ app.post('/send-request', express.json(), async (request, response) => {
 		let playersAgainst = "";
 
 		for (const obj of request.body.playersfor) {
-			playersfor += obj.Name + "(Lvl. " + obj.level + ")" + "\n";
+			playersfor += obj.name + "(Lvl. " + obj.level + ")" + "\n";
 		};
 
 		for (const obj of request.body.playersagainst) {
-			playersfor += obj.Name + "(Lvl. " + obj.level + ")" + "\n";
+			playersfor += obj.name + "(Lvl. " + obj.level + ")" + "\n";
 		};
 
 		votekickMessage.addFields(
 			{
-				name: "Players For",
+				name: "Voted For",
 				value: playersfor
 			},
 			{
-				name: "Players Against",
+				name: "Voted Against",
 				value: playersAgainst
 			}
 		);
