@@ -203,8 +203,8 @@ app.post('/send-request', express.json(), async (request, response) => {
 			.setTitle("Vote Kick")
 			.setDescription(
 				"**Player Voted:** " + request.body.victim +
-				"\n**Vote Initiator:** " + request.body.voter +
-				"\n**Votes Required:** " + request.body.votes + "/" + request.body.votesrequired
+				"\n**Vote Initiator:** " + request.body.initiator +
+				"\n**Votes Required:** " + request.body.votes + "/" + request.body.votesneeded
 			)
 			.setColor("#55fa52")
 			.setTimestamp()
