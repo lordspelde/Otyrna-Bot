@@ -197,6 +197,48 @@ app.post('/send-request', express.json(), async (request, response) => {
 		return response.sendStatus(200);
 	};
 
+	if (request.headers.type === "votekick") {
+
+		let votekickMessage = new EmbedBuilder()
+			.setTitle("Vote Kick")
+			.setDescription(
+				"**Player Voted:** " + request.body.victim +
+				"\n**Vote Initiator:** " + request.body.voter +
+				"\n**Votes Required:** " + request.body.votes + "/" + request.body.votesrequired
+			)
+			.setColor("#55fa52")
+			.setTimestamp()
+			.setFooter({ text: "Otyrna Communications"});
+
+		let playersfor = "";
+		let playersAgainst = "";
+
+		for (const obj of request.body.playersfor) {
+			playersfor += obj.Name + "(Lvl. " + obj.level + ")" + "\n";
+		};
+
+		for (const obj of request.body.playersagainst) {
+			playersfor += obj.Name + "(Lvl. " + obj.level + ")" + "\n";
+		};
+
+		votekickMessage.addFields(
+			{
+				name: "Players For",
+				value: playersfor
+			},
+			{
+				name: "Players Against",
+				value: playersAgainst
+			}
+		);
+
+		let votekickChannel = await client.channels.fetch(antiexploitChannelId);
+		votekickChannel.send({embeds: [votekickMessage]});
+
+		return response.sendStatus(200);
+
+	};
+
 	if (request.headers.type === "sendmessage") {
 		let general = await client.channels.fetch(request.body.channel);
 		general.send(request.body.message);
