@@ -213,12 +213,20 @@ app.post('/send-request', express.json(), async (request, response) => {
 		let playersfor = "";
 		let playersAgainst = "";
 
-		for (const obj of request.body.playersfor) {
-			playersfor += obj.name + "(Lvl. " + obj.level + ")" + "\n";
+		if (request.body.playersfor.length == 0) {
+			playersAgainst = "None";
+		} else {
+			for (const obj of request.body.playersfor) {
+				playersfor += obj.name + "(Lvl. " + obj.level + ")" + "\n";
+			};
 		};
 
-		for (const obj of request.body.playersagainst) {
-			playersfor += obj.name + "(Lvl. " + obj.level + ")" + "\n";
+		if (request.body.playersagainst.length == 0) {
+			playersAgainst = "None";
+		} else {
+			for (const obj of request.body.playersagainst) {
+				playersfor += obj.name + "(Lvl. " + obj.level + ")" + "\n";
+			};
 		};
 
 		votekickMessage.addFields(
