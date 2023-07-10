@@ -9,6 +9,7 @@ require('dotenv').config();
 
 const gameChannelID = "1004187152344686672"; //channel for completed games & stats
 const bossChannelId = "1004471441191862392"; //channel for boss kill logs
+const antiexploitChannelId = "1127980890375602277"; //channel for anti-exploit logs
 const serverTrackerChannelId = "1008020313222680647"; //channel for server tracker logs
 const testServerDataId = "1107450715691032668"; //ditto as gameChannelID and bossChannelId but for test server
 
@@ -165,6 +166,33 @@ app.post('/send-request', express.json(), async (request, response) => {
 
 		let bosskillChannel = await client.channels.fetch(request.headers["test-server"] == "true" && testServerDataId || bossChannelId);
 		bosskillChannel.send({embeds: [bosskillMessage]});
+
+		return response.sendStatus(200);
+	};
+
+	if (request.headers.type === "antiexploit") {
+		/*
+		name
+		userid
+		info
+		caseid
+		title
+		*/
+
+		let antiexploitMessage = new EmbedBuilder()
+			.setTitle(request.body.title)
+			.setDescription(
+				"**" + request.body.name + "** (" + request.body.userid + ")\n" +
+				request.body.info +
+				"\n\n**Server Type:**" + request.headers.server +
+				"\n**Case ID:**" + request.body.caseid
+			)
+			.setColor("#ff0000")
+			.setTimestamp()
+			.setFooter({ text: "Otyrna Communications"});
+
+		let antiexploitChannel = await client.channels.fetch(antiexploitChannelId);
+		antiexploitChannel.send({embeds: [antiexploitMessage]});
 
 		return response.sendStatus(200);
 	};
